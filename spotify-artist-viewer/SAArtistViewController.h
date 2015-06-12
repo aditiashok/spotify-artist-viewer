@@ -10,8 +10,9 @@
 #import "SAArtist.h"
 
 @interface SAArtistViewController : UIViewController
+
 @property (strong, nonatomic)SAArtist* artist;
 
-- (void) getURLFromArtist: (SAArtist*) artist;
+- (void) getURLFromArtist;
 
 @end

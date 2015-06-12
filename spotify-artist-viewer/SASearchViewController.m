@@ -17,7 +17,8 @@
 @property (strong, nonatomic) NSMutableArray *filteredArtists;
 @property (strong, nonatomic) UISearchController *searchController;
 @property (nonatomic) BOOL isSearching;
-//@property (strong, nonatomic) SAArtistViewController *switchviews;
+//@property (weak) IBOutlet UITableView *tableView;
+
 
 @end
 
@@ -25,9 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
-    /* sample artists to test if load */
     self.artists = [[NSMutableArray alloc] init];
     self.filteredArtists = [[NSMutableArray alloc] init];
     
@@ -41,7 +40,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -59,12 +57,10 @@
     }
 }
 
-/* gives you data from cell you clicked on */
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"myArtist"];
     cell.backgroundColor = [UIColor redColor];
-    // Configure the cell...
     if (_isSearching) {
         SAArtist *artist = [_filteredArtists objectAtIndex:indexPath.row];
         cell.textLabel.text = artist.name;
@@ -95,7 +91,6 @@
 
 
 
-/* search bar implementation */
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     _isSearching = YES;
@@ -103,18 +98,12 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     NSLog(@"Text change - %d",_isSearching);
-    /* call this function in get manager with the query -> add spotify url */
-    
-    //Remove all objects first.
     [_filteredArtists removeAllObjects];
     
     if([searchText length] != 0) {
         _isSearching = YES;
-        NSString *url = [NSString stringWithFormat:@"https://api.spotify.com/v1/search?q=%@&type=artist", searchText];
         
-        /* make call to spotify api here */
-        [[SARequestManager sharedManager] getArtistsWithQuery:url success:^(NSMutableArray *artists) {
-            /* save and/or display artists */
+        [[SARequestManager sharedManager] getArtistsWithQuery:searchText success:^(NSMutableArray *artists) {
             for (SAArtist *a in artists) {
                 [self.filteredArtists addObject:a];
             }
@@ -123,7 +112,6 @@
             });
             
         } failure:^(NSError *error) {
-            /* display nothing or error message */
             if (error == nil) {
                 NSLog(@"Nothing was downloaded");
                 
@@ -142,19 +130,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    SAArtist *art = [_filteredArtists objectAtIndex:indexPath.row];
-    NSString *cellText = cell.textLabel.text;
     
-    NSLog(@"ID: %@", art.identification);
-    NSLog(@"Name: %@", art.name);
-    NSLog(@"Calling switch views!");
-    //[SAArtistViewController switchviews];
-    SAArtistViewController *switchviews = [[SAArtistViewController alloc]init];
-    [switchviews getURLFromArtist:art];
-
+    [self performSegueWithIdentifier:@"artistSegue" sender:self.tableView];
     
-    //call function from here in the search control
 }
 
 
@@ -166,14 +144,20 @@
 
 //use spotify search API to retrieve artist from table results
 // how does this interact with the table control view?
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    if ([[segue identifier] isEqualToString:@"artistSegue"]){
+        SAArtistViewController *artistViewController = [segue destinationViewController];
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        artistViewController.artist = [_filteredArtists objectAtIndex:indexPath.row];
+    }
+
+    
+    
 }
-*/
 
 @end

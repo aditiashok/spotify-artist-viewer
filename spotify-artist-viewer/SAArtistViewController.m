@@ -8,8 +8,12 @@
 
 #import "SAArtistViewController.h"
 #import "SARequestManager.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface SAArtistViewController ()
+@property (weak) IBOutlet UITextView *bioTextView;
+@property (weak, nonatomic) IBOutlet UIImageView *artistImage;
+@property (weak, nonatomic) IBOutlet UILabel *nameTextView;
 
 @end
 
@@ -17,7 +21,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSURL *imageLink = self.artist.imageURL;
+    [self.artistImage sd_setImageWithURL:imageLink];
+    [self getURLFromArtist];
+    
+    
     // Do any additional setup after loading the view.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+   
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -25,20 +41,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) getURLFromArtist: (SAArtist*) artist{
-    NSLog(@"i'm in getURL");
-    /*call get artist bio from here */
-    //NSLog(@"name:%@", artist.name);
-    NSLog(@"id:%@", artist.identification);
-    
-    NSString *url = [NSString stringWithFormat:@"http://developer.echonest.com/api/v4/artist/biographies?api_key=DUWJH8RQD34BNV6XO&id=spotify:artist:%@", artist.identification];
-    
-    NSLog(@"url:%@", url);
-    
-    
-    [[SARequestManager sharedManager] getBioFromArtist:url success:^(NSString *bio) {
-        /* display text and artist name */
+- (void) getURLFromArtist {
+    [[SARequestManager sharedManager] getBioFromArtist:self.artist.identification success:^(NSString *bio) {
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.bioTextView.text = bio;
+            self.nameTextView.text = self.artist.name;
+        });
+
         
     } failure:^(NSError *error) {
         /* display nothing or error message */

@@ -41,14 +41,22 @@
                             success:(void (^)(NSMutableArray *artists))success
                             failure: (void (^) (NSError *error))failure{
     
-    NSURL *url = [NSURL URLWithString:query];
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-    NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+    NSString* fullURL = [NSString stringWithFormat:@"https://api.spotify.com/v1/search?q=%@&type=artist", query];
+    
+    NSMutableString *urlString = [[NSMutableString alloc] init];
+    [urlString appendString:fullURL];
+    
+    NSString *encodedURL = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *newURL = [NSURL URLWithString:encodedURL];
+
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:newURL];
+    
+        NSOperationQueue *queue = [[NSOperationQueue alloc]init];
     
 
-    [NSURLConnection sendAsynchronousRequest:urlRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+    [NSURLConnection sendAsynchronousRequest:
+     urlRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
         if ([data length] > 0 && error == nil) {
-            // call success block
             NSMutableArray *artists = [[NSMutableArray alloc]init];
             NSDictionary *jsonObject = [NSJSONSerialization
                              JSONObjectWithData:data
@@ -57,13 +65,16 @@
             
             NSDictionary *ar= [jsonObject objectForKey:@"artists"];
             NSArray *items = [ar objectForKey:@"items"];
-           // NSArray *images = [items objectForKey:@"images"];
+            
             for (int i = 0; i < [items count]; i++) {
                     SAArtist *a = [[SAArtist alloc]init];
                     a.name =[[items objectAtIndex:i]objectForKey:@"name"];
                     a.identification = [[items objectAtIndex:i]objectForKey:@"id"];
-                    /* must access image URL */
-                    //NSLog(@"URL: %@", a.imageURL);
+                    NSArray *image_array = [[items objectAtIndex:i]objectForKey:@"images"];
+                    if ([image_array count] > 0) {
+                        a.imageURL = [[image_array objectAtIndex:0]objectForKey:@"url"];
+                    }
+
                     [artists addObject:a];
             }
             
@@ -89,25 +100,26 @@
                     success:(void (^)(NSString *bio))success
                     failure: (void (^) (NSError *error))failure {
     
-    NSURL *url = [NSURL URLWithString:query];
+
+    NSString *fullURL = [NSString stringWithFormat:@"http://developer.echonest.com/api/v4/artist/biographies?api_key=DUWJH8RQD34BNV6XO&id=spotify:artist:%@", query];
+    
+    NSURL *url = [NSURL URLWithString:fullURL];
+    
+    
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     NSOperationQueue *queue = [[NSOperationQueue alloc]init];
     
     [NSURLConnection sendAsynchronousRequest:urlRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
         if ([data length] > 0 && error == nil) {
-            /*success block */
             NSDictionary *jsonObject = [NSJSONSerialization
                                         JSONObjectWithData:data
                                         options:NSJSONReadingAllowFragments
                                         error:&error];
 
-            //NSLog(@"jsonobject: %@",jsonObject);
             NSDictionary *ar= [jsonObject objectForKey:@"response"];
             NSArray *biographies = [ar objectForKey:@"biographies"];
             
-            /* switch and look for truncated eventually */
             NSString *text =[[biographies objectAtIndex:0]objectForKey:@"text"];
-            //NSLog(@"text: %@",text);
             
             success(text);
             
