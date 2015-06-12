@@ -15,7 +15,9 @@
 		2E76743B1B26766200336867 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E7674391B26766200336867 /* LaunchScreen.xib */; };
 		2E7674471B26766200336867 /* spotify_artist_viewerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7674461B26766200336867 /* spotify_artist_viewerTests.m */; };
 		2E7674541B2676F400336867 /* SAArtist.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7674531B2676F400336867 /* SAArtist.m */; };
-		2E7674571B26772600336867 /* SARequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7674561B26772600336867 /* SARequestManager.m */; };
+		BA8145921B2775F30063ACFF /* SASearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8145911B2775F30063ACFF /* SASearchViewController.m */; };
+		BA8145951B27760E0063ACFF /* SAArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8145941B27760E0063ACFF /* SAArtistViewController.m */; };
+		BA96BAD81B2869AE000757C5 /* SARequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96BAD71B2869AE000757C5 /* SARequestManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,8 +46,12 @@
 		2E7674461B26766200336867 /* spotify_artist_viewerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = spotify_artist_viewerTests.m; sourceTree = "<group>"; };
 		2E7674521B2676F400336867 /* SAArtist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SAArtist.h; path = Models/SAArtist.h; sourceTree = "<group>"; };
 		2E7674531B2676F400336867 /* SAArtist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SAArtist.m; path = Models/SAArtist.m; sourceTree = "<group>"; };
-		2E7674551B26772600336867 /* SARequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SARequestManager.h; path = Networking/SARequestManager.h; sourceTree = "<group>"; };
-		2E7674561B26772600336867 /* SARequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SARequestManager.m; path = Networking/SARequestManager.m; sourceTree = "<group>"; };
+		BA8145901B2775F30063ACFF /* SASearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASearchViewController.h; sourceTree = "<group>"; };
+		BA8145911B2775F30063ACFF /* SASearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SASearchViewController.m; sourceTree = "<group>"; };
+		BA8145931B27760E0063ACFF /* SAArtistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAArtistViewController.h; sourceTree = "<group>"; };
+		BA8145941B27760E0063ACFF /* SAArtistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAArtistViewController.m; sourceTree = "<group>"; };
+		BA96BAD61B2869AE000757C5 /* SARequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARequestManager.h; sourceTree = "<group>"; };
+		BA96BAD71B2869AE000757C5 /* SARequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARequestManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +100,12 @@
 				2E7674311B26766200336867 /* ViewController.h */,
 				2E7674321B26766200336867 /* ViewController.m */,
 				2E7674341B26766200336867 /* Main.storyboard */,
+				BA8145901B2775F30063ACFF /* SASearchViewController.h */,
+				BA8145911B2775F30063ACFF /* SASearchViewController.m */,
+				BA96BAD61B2869AE000757C5 /* SARequestManager.h */,
+				BA96BAD71B2869AE000757C5 /* SARequestManager.m */,
+				BA8145931B27760E0063ACFF /* SAArtistViewController.h */,
+				BA8145941B27760E0063ACFF /* SAArtistViewController.m */,
 				2E7674371B26766200336867 /* Images.xcassets */,
 				2E7674391B26766200336867 /* LaunchScreen.xib */,
 				2E76742A1B26766200336867 /* Supporting Files */,
@@ -139,8 +151,6 @@
 		2E7674511B2676D400336867 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				2E7674551B26772600336867 /* SARequestManager.h */,
-				2E7674561B26772600336867 /* SARequestManager.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -247,9 +257,11 @@
 			files = (
 				2E7674541B2676F400336867 /* SAArtist.m in Sources */,
 				2E7674331B26766200336867 /* ViewController.m in Sources */,
+				BA8145921B2775F30063ACFF /* SASearchViewController.m in Sources */,
+				BA8145951B27760E0063ACFF /* SAArtistViewController.m in Sources */,
 				2E7674301B26766200336867 /* AppDelegate.m in Sources */,
+				BA96BAD81B2869AE000757C5 /* SARequestManager.m in Sources */,
 				2E76742D1B26766200336867 /* main.m in Sources */,
-				2E7674571B26772600336867 /* SARequestManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +458,7 @@
 				2E76744C1B26766200336867 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2E76744D1B26766200336867 /* Build configuration list for PBXNativeTarget "spotify-artist-viewerTests" */ = {
 			isa = XCConfigurationList;
@@ -454,6 +467,7 @@
 				2E76744F1B26766200336867 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
