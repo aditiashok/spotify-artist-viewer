@@ -22,9 +22,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.bioTextView scrollRangeToVisible:NSMakeRange(0, 1)];
+    
+    
     NSURL *imageLink = self.artist.imageURL;
     [self.artistImage sd_setImageWithURL:imageLink];
     [self getURLFromArtist];
+    
+    
+
     
     
     // Do any additional setup after loading the view.

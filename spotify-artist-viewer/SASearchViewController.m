@@ -60,7 +60,7 @@
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"myArtist"];
-    cell.backgroundColor = [UIColor redColor];
+
     if (_isSearching) {
         SAArtist *artist = [_filteredArtists objectAtIndex:indexPath.row];
         cell.textLabel.text = artist.name;

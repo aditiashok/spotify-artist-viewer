@@ -28,12 +28,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -90,9 +88,6 @@
     
     }];
 
-  
-     
-     /* ASYNCHRONOUS */
 }
 
 
@@ -119,8 +114,14 @@
             NSDictionary *ar= [jsonObject objectForKey:@"response"];
             NSArray *biographies = [ar objectForKey:@"biographies"];
             
-            NSString *text =[[biographies objectAtIndex:0]objectForKey:@"text"];
+            NSString *text = [[NSString alloc]init];
             
+            for (int i = 0; i < [biographies count]; i++) {
+                if ([[biographies objectAtIndex:i]objectForKey:@"truncated"] == NO) {
+                    text =[[biographies objectAtIndex:i]objectForKey:@"text"];
+                    break;
+                }
+            }
             success(text);
             
         }
@@ -136,14 +137,6 @@
 
     
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
