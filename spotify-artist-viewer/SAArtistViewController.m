@@ -32,11 +32,6 @@
     [self.artistImage sd_setImageWithURL:imageLink];
     [self getURLFromArtist];
     
-    
-
-    
-    
-    // Do any additional setup after loading the view.
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -47,7 +42,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void) getURLFromArtist {
@@ -76,22 +70,6 @@
     }];
 
 }
-
-
-
-#pragma mark - Navigation
-/*
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"favoriteSegue"]){
-        SAFavoritesViewController *favoriteViewController = [segue destinationViewController];
-        [favoriteViewController.favoriteArtists addObject:self.artist.name];
-
-    }
-}*/ 
-
-
-
 
 
 @end

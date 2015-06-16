@@ -39,7 +39,8 @@
                             success:(void (^)(NSMutableArray *artists))success
                             failure: (void (^) (NSError *error))failure{
     
-    NSString* fullURL = [NSString stringWithFormat:@"https://api.spotify.com/v1/search?q=%@&type=artist", query];
+    NSString *fullURL = [NSString stringWithFormat:
+                         @"https://api.spotify.com/v1/search?q=%@&type=artist", query];
     
     NSMutableString *urlString = [[NSMutableString alloc] init];
     [urlString appendString:fullURL];
@@ -49,7 +50,7 @@
 
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:newURL];
     
-        NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+    NSOperationQueue *queue = [[NSOperationQueue alloc]init];
     
 
     [NSURLConnection sendAsynchronousRequest:
@@ -96,7 +97,8 @@
                     failure: (void (^) (NSError *error))failure {
     
 
-    NSString *fullURL = [NSString stringWithFormat:@"http://developer.echonest.com/api/v4/artist/biographies?api_key=DUWJH8RQD34BNV6XO&id=spotify:artist:%@", query];
+    NSString *fullURL = [NSString stringWithFormat:
+                         @"http://developer.echonest.com/api/v4/artist/biographies?api_key=DUWJH8RQD34BNV6XO&id=spotify:artist:%@", query];
     
     NSURL *url = [NSURL URLWithString:fullURL];
     

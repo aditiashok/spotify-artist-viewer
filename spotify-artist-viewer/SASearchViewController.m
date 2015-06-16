@@ -29,54 +29,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
-    
     self.artists = [[NSMutableArray alloc] init];
     self.filteredArtists = [[NSMutableArray alloc] init];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor blackColor];
-
-
-    //autocomplete table
     
-    
-    [self.tableView reloadData]; //refreshes
-    
-    
-    
-    
-    
+    [self.tableView reloadData];
     
 }
-
-/* look into seeing if there is a better way to do this
--(void)viewWillLayoutSubviews{
-    
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7)
-    {
-        self.view.clipsToBounds = YES;
-        CGRect screenRect = [[UIScreen mainScreen] bounds];
-        CGFloat screenHeight = 0.0;
-        if(UIDeviceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
-            screenHeight = screenRect.size.height;
-        else
-            screenHeight = screenRect.size.width;
-        CGRect screenFrame = CGRectMake(0, 20, self.view.frame.size.width,screenHeight-20);
-        CGRect viewFr = [self.view convertRect:self.view.frame toView:nil];
-        if (!CGRectEqualToRect(screenFrame, viewFr))
-        {
-            self.view.frame = screenFrame;
-            self.view.bounds = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-        }
-    }
-} */
 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
+
+
+#pragma mark - UITableView
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -87,6 +57,7 @@
         NSLog(@"%d", (int)self.filteredArtists.count);
         return [_filteredArtists count];
     }
+    
     else {
         return [_artists count];
     }
@@ -127,9 +98,7 @@
 }
 
 
-
-
-
+#pragma mark - UISearchView
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     _isSearching = YES;
 }
@@ -141,9 +110,10 @@
     if([searchText length] != 0) {
         _isSearching = YES;
         
-        [[SARequestManager sharedManager] getArtistsWithQuery:searchText success:^(NSMutableArray *artists) {
-            for (SAArtist *a in artists) {
-                [self.filteredArtists addObject:a];
+        [[SARequestManager sharedManager] getArtistsWithQuery:
+                                          searchText success:^(NSMutableArray *artists) {
+            for (SAArtist *artist in artists) {
+                [self.filteredArtists addObject:artist];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
@@ -167,26 +137,7 @@
     
 }
 
-/*
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [self performSegueWithIdentifier:@"artistSegue" sender:self.tableView];
-    
-}
- */
-
-
-
-
-
-
-
-//use spotify search API to retrieve artist from table results
-// how does this interact with the table control view?
-
 #pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"artistSegue"]){
