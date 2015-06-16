@@ -8,8 +8,13 @@
 
 #import "SAArtistViewController.h"
 #import "SARequestManager.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "SAFavoritesViewController.h"
 
 @interface SAArtistViewController ()
+@property (weak) IBOutlet UITextView *bioTextView;
+@property (weak, nonatomic) IBOutlet UIImageView *artistImage;
+@property (weak, nonatomic) IBOutlet UILabel *nameTextView;
 
 @end
 
@@ -17,28 +22,41 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self.bioTextView scrollRangeToVisible:NSMakeRange(0, 1)];
+    self.view.backgroundColor = [UIColor blackColor];
+    
+    
+    
+    NSURL *imageLink = self.artist.imageURL;
+    [self.artistImage sd_setImageWithURL:imageLink];
+    [self getURLFromArtist];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+   
+   
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-- (void) getURLFromArtist: (SAArtist*) artist{
-    NSLog(@"i'm in getURL");
-    /*call get artist bio from here */
-    //NSLog(@"name:%@", artist.name);
-    NSLog(@"id:%@", artist.identification);
-    
-    NSString *url = [NSString stringWithFormat:@"http://developer.echonest.com/api/v4/artist/biographies?api_key=DUWJH8RQD34BNV6XO&id=spotify:artist:%@", artist.identification];
-    
-    NSLog(@"url:%@", url);
-    
-    
-    [[SARequestManager sharedManager] getBioFromArtist:url success:^(NSString *bio) {
-        /* display text and artist name */
+- (void) getURLFromArtist {
+    [[SARequestManager sharedManager] getBioFromArtist:self.artist.identification success:^(NSString *bio) {
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.bioTextView.text = bio;
+            
+            self.bioTextView.backgroundColor = [UIColor blackColor];
+            self.bioTextView.textColor= [UIColor whiteColor];
+
+            self.nameTextView.text = self.artist.name;
+            self.nameTextView.textColor = [UIColor whiteColor];
+        });
+
         
     } failure:^(NSError *error) {
         /* display nothing or error message */
@@ -53,14 +71,5 @@
 
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
