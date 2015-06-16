@@ -9,6 +9,7 @@
 #import "SAArtistViewController.h"
 #import "SARequestManager.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "SAFavoritesViewController.h"
 
 @interface SAArtistViewController ()
 @property (weak) IBOutlet UITextView *bioTextView;
@@ -23,6 +24,8 @@
     [super viewDidLoad];
     
     [self.bioTextView scrollRangeToVisible:NSMakeRange(0, 1)];
+    self.view.backgroundColor = [UIColor blackColor];
+    
     
     
     NSURL *imageLink = self.artist.imageURL;
@@ -52,7 +55,12 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             self.bioTextView.text = bio;
+            
+            self.bioTextView.backgroundColor = [UIColor blackColor];
+            self.bioTextView.textColor= [UIColor whiteColor];
+
             self.nameTextView.text = self.artist.name;
+            self.nameTextView.textColor = [UIColor whiteColor];
         });
 
         
@@ -69,14 +77,21 @@
 
 }
 
-/*
-#pragma mark - Navigation
 
+
+#pragma mark - Navigation
+/*
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+    if ([[segue identifier] isEqualToString:@"favoriteSegue"]){
+        SAFavoritesViewController *favoriteViewController = [segue destinationViewController];
+        [favoriteViewController.favoriteArtists addObject:self.artist.name];
+
+    }
+}*/ 
+
+
+
+
 
 @end

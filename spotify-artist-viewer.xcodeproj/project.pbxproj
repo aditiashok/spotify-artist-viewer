@@ -19,6 +19,7 @@
 		BA8145921B2775F30063ACFF /* SASearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8145911B2775F30063ACFF /* SASearchViewController.m */; };
 		BA8145951B27760E0063ACFF /* SAArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8145941B27760E0063ACFF /* SAArtistViewController.m */; };
 		BA96BAD81B2869AE000757C5 /* SARequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96BAD71B2869AE000757C5 /* SARequestManager.m */; };
+		BAE030D01B2F0F7A00D6E9B7 /* SAFavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAE030CF1B2F0F7A00D6E9B7 /* SAFavoritesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		BA8145941B27760E0063ACFF /* SAArtistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAArtistViewController.m; sourceTree = "<group>"; };
 		BA96BAD61B2869AE000757C5 /* SARequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARequestManager.h; sourceTree = "<group>"; };
 		BA96BAD71B2869AE000757C5 /* SARequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARequestManager.m; sourceTree = "<group>"; };
+		BAE030CE1B2F0F7A00D6E9B7 /* SAFavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAFavoritesViewController.h; sourceTree = "<group>"; };
+		BAE030CF1B2F0F7A00D6E9B7 /* SAFavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAFavoritesViewController.m; sourceTree = "<group>"; };
 		D2BCB9043576F44D9A5C5863 /* Pods-spotify-artist-viewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotify-artist-viewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-spotify-artist-viewer/Pods-spotify-artist-viewer.debug.xcconfig"; sourceTree = "<group>"; };
 		F6AE8ABFC8E78A2C70231A59 /* Pods-spotify-artist-viewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spotify-artist-viewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-spotify-artist-viewer/Pods-spotify-artist-viewer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +120,8 @@
 				2E7674341B26766200336867 /* Main.storyboard */,
 				BA8145901B2775F30063ACFF /* SASearchViewController.h */,
 				BA8145911B2775F30063ACFF /* SASearchViewController.m */,
+				BAE030CE1B2F0F7A00D6E9B7 /* SAFavoritesViewController.h */,
+				BAE030CF1B2F0F7A00D6E9B7 /* SAFavoritesViewController.m */,
 				BA96BAD61B2869AE000757C5 /* SARequestManager.h */,
 				BA96BAD71B2869AE000757C5 /* SARequestManager.m */,
 				BA8145931B27760E0063ACFF /* SAArtistViewController.h */,
@@ -318,6 +323,7 @@
 				2E7674331B26766200336867 /* ViewController.m in Sources */,
 				BA8145921B2775F30063ACFF /* SASearchViewController.m in Sources */,
 				BA8145951B27760E0063ACFF /* SAArtistViewController.m in Sources */,
+				BAE030D01B2F0F7A00D6E9B7 /* SAFavoritesViewController.m in Sources */,
 				2E7674301B26766200336867 /* AppDelegate.m in Sources */,
 				BA96BAD81B2869AE000757C5 /* SARequestManager.m in Sources */,
 				2E76742D1B26766200336867 /* main.m in Sources */,

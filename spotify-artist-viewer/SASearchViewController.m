@@ -17,7 +17,9 @@
 @property (strong, nonatomic) NSMutableArray *filteredArtists;
 @property (strong, nonatomic) UISearchController *searchController;
 @property (nonatomic) BOOL isSearching;
-//@property (weak) IBOutlet UITableView *tableView;
+
+
+
 
 
 @end
@@ -27,15 +29,48 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+
+    
     self.artists = [[NSMutableArray alloc] init];
     self.filteredArtists = [[NSMutableArray alloc] init];
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.view.backgroundColor = [UIColor blackColor];
+
+
+    //autocomplete table
     
     
     [self.tableView reloadData]; //refreshes
     
     
+    
+    
+    
+    
 }
 
+/* look into seeing if there is a better way to do this
+-(void)viewWillLayoutSubviews{
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7)
+    {
+        self.view.clipsToBounds = YES;
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        CGFloat screenHeight = 0.0;
+        if(UIDeviceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
+            screenHeight = screenRect.size.height;
+        else
+            screenHeight = screenRect.size.width;
+        CGRect screenFrame = CGRectMake(0, 20, self.view.frame.size.width,screenHeight-20);
+        CGRect viewFr = [self.view convertRect:self.view.frame toView:nil];
+        if (!CGRectEqualToRect(screenFrame, viewFr))
+        {
+            self.view.frame = screenFrame;
+            self.view.bounds = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        }
+    }
+} */
 
 
 - (void)didReceiveMemoryWarning {
@@ -57,6 +92,7 @@
     }
 }
 
+
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"myArtist"];
@@ -70,8 +106,8 @@
         cell.textLabel.text = artist.name;
         
     }
-    
-    NSLog(@"cell.label %@", cell.textLabel);
+    cell.contentView.backgroundColor = [UIColor blackColor];
+    cell.textLabel.textColor = [UIColor whiteColor];
     
     return cell;
 
@@ -81,7 +117,9 @@
     NSString *searchString = self.searchController.searchBar.text;
     
     for (NSString *tempStr in _artists) {
-        NSComparisonResult result = [tempStr compare:searchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchString length])];
+        NSComparisonResult result = [tempStr compare:searchString options:
+                                     (NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch)
+                                               range:NSMakeRange(0, [searchString length])];
         if (result == NSOrderedSame) {
             [_filteredArtists addObject:tempStr];
         }
@@ -129,12 +167,13 @@
     
 }
 
+/*
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [self performSegueWithIdentifier:@"artistSegue" sender:self.tableView];
     
 }
-
+ */
 
 
 
@@ -156,7 +195,6 @@
         artistViewController.artist = [_filteredArtists objectAtIndex:indexPath.row];
     }
 
-    
     
 }
 
